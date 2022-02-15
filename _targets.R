@@ -2,7 +2,7 @@ library(targets)
 source("R/functions.R")
 list(
   tar_target(
-    download_data,
+    penguin_data,
     get_palmer_data(),
     format = "file"
   )#,
