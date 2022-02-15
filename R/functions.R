@@ -4,7 +4,61 @@
 # Get the palmer penguins data and save it as a file
 
 get_palmer_data <- function(path = "data/penguins.csv"){
+  stopifnot(is.character(path))
   penguins_data <- palmerpenguins::penguins
   readr::write_csv(penguins_data, path)
   return(path)
+}
+
+# Read the data
+
+read_data <- function(path){
+  stopifnot(is.character(path))
+  dat <- readr::read_csv(path, col_types = readr::cols())
+  return(dat)
+}
+
+# Clean the data
+
+clean_data <- function(dat){
+  stopifnot(is.data.frame(dat))
+  dat_cleaned <- tidyr::drop_na(dat)
+  return(dat_cleaned)
+}
+
+# Write out the clean data
+
+write_clean_data <- function(dat, path = "data/penguins_clean.csv"){
+  stopifnot(is.data.frame(dat))
+  stopifnot(is.character(path))
+  readr::write_csv(dat, path)
+  return(path)
+}
+
+# Fit simple linear model
+
+fit_lm <- function(dat, formula = as.formula(bill_length_mm ~ body_mass_g + species)){
+  stopifnot(is.data.frame(dat))
+  stopifnot(class(formula) == "formula")
+  fit <- lm(formula, dat)
+  return(fit)
+}
+
+# Plot fit with data
+
+create_plot <- function(dat, fit){
+  stopifnot(is.data.frame(dat))
+  stopifnot(class(fit) == "lm")
+
+  preds <- predict(fit)
+  dat$preds <- preds
+
+  fit_plot <- dat |>
+    ggplot2::ggplot(ggplot2::aes(y = bill_length_mm,
+                                 x = body_mass_g, color = species)) +
+    ggplot2::geom_point() +
+    ggplot2::geom_line(ggplot2::aes(x = body_mass_g,
+                                    y = preds))
+
+  return(fit_plot)
 }
