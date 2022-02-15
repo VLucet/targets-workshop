@@ -5,6 +5,6 @@
 
 get_palmer_data <- function(path = "data/penguins.csv"){
   penguins_data <- palmerpenguins::penguins
-  write.csv(penguins_data, path)
+  readr::write_csv(penguins_data, path)
   return(path)
 }
