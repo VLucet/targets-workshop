@@ -1,5 +1,6 @@
 library(targets)
 source("R/functions.R")
+Sys.setenv(RETICULATE_PYTHON = "/usr/bin/python3")
 list(
   tar_target(
     penguin_data_file,
@@ -26,6 +27,15 @@ list(
   tar_target(
     fit_plot,
     create_plot(penguin_data_clean, lm_fit)
+  ),
+  tar_target(
+    compute_means_py_file,
+    get_compute_means_py_path(),
+    format = "file"
+  ),
+  tar_target(
+    means_py,
+    compute_means_py(compute_means_py_file, penguin_data_clean_file)
   )
   # tar_render(report, "index.Rmd")
 )
