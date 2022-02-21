@@ -37,23 +37,23 @@ write_clean_data <- function(dat, path = "data/penguins_clean.csv"){
 
 # Fit simple linear model
 
-fit_lm <- function(dat, formula = as.formula(bill_length_mm ~ body_mass_g + species)){
-  stopifnot(is.data.frame(dat))
+fit_lm <- function(dat_clean, formula = as.formula(bill_length_mm ~ body_mass_g + species)){
+  stopifnot(is.data.frame(dat_clean))
   stopifnot(class(formula) == "formula")
-  fit <- lm(formula, dat)
+  fit <- lm(formula, dat_clean)
   return(fit)
 }
 
 # Plot fit with data
 
-create_plot <- function(dat, fit){
-  stopifnot(is.data.frame(dat))
+create_plot <- function(dat_clean, fit){
+  stopifnot(is.data.frame(dat_clean))
   stopifnot(class(fit) == "lm")
 
   preds <- predict(fit)
-  dat$preds <- preds
+  dat_clean$preds <- preds
 
-  fit_plot <- dat |>
+  fit_plot <- dat_clean |>
     ggplot2::ggplot(ggplot2::aes(y = bill_length_mm,
                                  x = body_mass_g, color = species)) +
     ggplot2::geom_point() +
@@ -73,7 +73,7 @@ get_compute_means_py_path <- function(path = "python/compute_means.py"){
 
 # Run a python script
 
-compute_means_py <- function(path, dat, key = "body_mass_g"){
+compute_means_py <- function(path, dat_clean, key = "body_mass_g"){
   reticulate::source_python(path)
-  compute_mean(dat, key)
+  compute_mean(dat_clean, key)
 }
