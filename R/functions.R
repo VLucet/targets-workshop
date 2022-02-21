@@ -28,10 +28,10 @@ clean_data <- function(dat){
 
 # Write out the clean data
 
-write_clean_data <- function(dat, path = "data/penguins_clean.csv"){
-  stopifnot(is.data.frame(dat))
+write_clean_data <- function(dat_clean, path = "data/penguins_clean.csv"){
+  stopifnot(is.data.frame(dat_clean))
   stopifnot(is.character(path))
-  readr::write_csv(dat, path)
+  readr::write_csv(dat_clean, path)
   return(path)
 }
 
