@@ -19,4 +19,4 @@ fit_plot <- dat_cleaned |>
   ggplot2::geom_line(ggplot2::aes(x = body_mass_g,
                                   y = preds))
 
-ggplot2::ggsave(fit_plot, out_path)
+ggplot2::ggsave(out_path, fit_plot)

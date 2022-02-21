@@ -31,3 +31,5 @@ fit_plot <- dat_cleaned |>
   ggplot2::geom_point() +
   ggplot2::geom_line(ggplot2::aes(x = body_mass_g,
                                   y = preds))
+
+ggplot2::ggsave('fig1.png', fit_plot)

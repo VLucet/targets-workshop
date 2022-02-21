@@ -63,6 +63,13 @@ create_plot <- function(dat_clean, fit){
   return(fit_plot)
 }
 
+# Save the plot
+
+save_plot <- function(fit_plot, path = 'fig1.png'){
+  ggplot2::ggsave(path, fit_plot)
+  return(path)
+}
+
 # -------------------------------------------------------------------------
 
 # Returns the python script file

@@ -31,6 +31,14 @@ list(
     create_plot(penguin_data_clean, lm_fit)
   ),
   tar_target(
+    fig_1,
+    save_plot(fit_plot),
+    format = "file"
+  ),
+
+  # -------------------------------------------------------------------------
+
+  tar_target(
     compute_means_py_file,
     get_compute_means_py_path(),
     format = "file"
