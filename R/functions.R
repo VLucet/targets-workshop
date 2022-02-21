@@ -63,6 +63,8 @@ create_plot <- function(dat, fit){
   return(fit_plot)
 }
 
+# -------------------------------------------------------------------------
+
 # Returns the python script file
 
 get_compute_means_py_path <- function(path = "python/compute_means.py"){
@@ -70,7 +72,8 @@ get_compute_means_py_path <- function(path = "python/compute_means.py"){
 }
 
 # Run a python script
-compute_means_py <- function(path, dat_file){
+
+compute_means_py <- function(path, dat, key = "body_mass_g"){
   reticulate::source_python(path)
-  compute_means(dat_file) # add dat file
+  compute_mean(dat, key)
 }
